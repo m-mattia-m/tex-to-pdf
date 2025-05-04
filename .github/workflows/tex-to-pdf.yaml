@@ -1,5 +1,11 @@
 name: Build LaTeX document
 on:
+  workflow_dispatch:
+    inputs:
+      target_file:
+        description: 'LaTeX file to compile'
+        required: true
+        default: 'main.tex'
   push:
     branches: 
       - main
