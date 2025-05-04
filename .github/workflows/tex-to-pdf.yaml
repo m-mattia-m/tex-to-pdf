@@ -22,7 +22,7 @@ jobs:
         with:
           output_dir: output
           main_latex_file: main.tex
-          ctan_packages: hyperref
+          ctan_packages: amsmath hyperref
       - name: Upload PDF to the workflow tab
         id: upload-workflow-tab
         uses: actions/upload-artifact@v2
