@@ -6,8 +6,16 @@ on:
       - develop
     tags:
        - '*'
+    paths:
+      - '**.tex'
   pull_request:
     branches: [ main ]
+    paths:
+      - '**.tex'
+
+permissions:
+  contents: write
+
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -23,8 +31,10 @@ jobs:
         with:
           name: PDF
           path: main.pdf
-      - name: Add files to release
-        uses: softprops/action-gh-release@v2
-        if: github.ref_type == 'tag'
-        with:
-          files: main.pdf
+      - name: Commit and push PDF to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add main.pdf
+          git commit -m "Add compiled PDF [ci skip]" || echo "No changes to commit"
+          git push
